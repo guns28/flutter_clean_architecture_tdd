@@ -25,7 +25,6 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  flutter_translate: ^3.0.1
   provider: ^5.0.0
   flutter_bloc: ^7.0.0
   equatable: ^2.0.1
@@ -55,7 +54,7 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
-
+  generate: true
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg

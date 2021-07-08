@@ -1,0 +1,9 @@
+{
+  "@@locale": "en",
+
+  "test_translate": "HI EN",
+  "@test_translate": {
+    "description": "text"
+  }
+
+}

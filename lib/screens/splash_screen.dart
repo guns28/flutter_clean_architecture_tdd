@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -17,6 +18,10 @@ class SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     // TODO: Implement build
-    return Scaffold();
+    return Scaffold(
+      body: Center(
+        child: Text(AppLocalizations.of(context)!.test_translate),
+      ),
+    );
   }
 }
