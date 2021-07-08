@@ -1,8 +1,8 @@
 {
   "@@locale": "en",
 
-  "test_translate": "HI EN",
-  "@test_translate": {
+  "demo_app": "DEMO APP",
+  "@demo_app": {
     "description": "text"
   }
 

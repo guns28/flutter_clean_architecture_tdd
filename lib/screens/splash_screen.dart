@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'list_restaurant_screen/list_restaurants_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -13,6 +14,12 @@ class SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
+    Future.delayed(Duration(seconds: 1), () {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (BuildContext context) => ListRestaurantScreen()));
+    });
   }
 
   @override
@@ -20,7 +27,8 @@ class SplashScreenState extends State<SplashScreen> {
     // TODO: Implement build
     return Scaffold(
       body: Center(
-        child: Text(AppLocalizations.of(context)!.test_translate),
+        child: Text(AppLocalizations.of(context)!.demo_app,
+        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
       ),
     );
   }
