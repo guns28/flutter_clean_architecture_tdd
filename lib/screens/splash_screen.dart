@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'list_restaurant_screen/list_restaurants_screen.dart';
+import 'list_restaurant_screen/list_merchants_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -18,7 +18,7 @@ class SplashScreenState extends State<SplashScreen> {
       Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (BuildContext context) => ListRestaurantScreen()));
+              builder: (BuildContext context) => ListMerchantScreen()));
     });
   }
 
