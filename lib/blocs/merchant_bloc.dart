@@ -20,7 +20,7 @@ class MerchantBloc extends Bloc<MerchantEvent, MerchantState> {
   ) async* {
     // TODO: implement mapEventToState
     if (event is GetMerchantsList) {
-      //try {
+      try {
         yield MerchantInitial();
 
         var url = "$baseUrl$listMerchants?limit=${event.nbMerchants}";
@@ -39,9 +39,9 @@ class MerchantBloc extends Bloc<MerchantEvent, MerchantState> {
         } else {
           yield ErrorState('error');
         }
-     // } catch (e) {
-       // yield ErrorState("error");
-      //}
+      } catch (e) {
+        yield ErrorState("error");
+      }
     }
   }
 }

@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
         const Locale('es', ''), // Spanish, no country code
       ],
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.orange,
       ),
       home: SplashScreen(),
         builder: EasyLoading.init()

@@ -4,6 +4,8 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:mobile_app_engineer/blocs/merchant_bloc.dart';
 import 'package:mobile_app_engineer/models/list_merchants_response.dart';
+import 'package:mobile_app_engineer/screens/details_restaurant_screen/details_merchant_screen.dart';
+import 'package:mobile_app_engineer/screens/list_restaurant_screen/merchant_cell.dart';
 
 class ListMerchantScreen extends StatefulWidget {
   @override
@@ -15,7 +17,7 @@ class ListMerchantScreen extends StatefulWidget {
 class ListMerchantScreenState extends State<ListMerchantScreen> {
 
   final _merchantBloc = MerchantBloc();
-  late List<Merchant> listMerchants;
+  List<Merchant> listMerchants = [];
 
 
   @override
@@ -33,6 +35,11 @@ class ListMerchantScreenState extends State<ListMerchantScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text("Welcome", style: TextStyle(color: Colors.white, fontSize: 24,
+            fontWeight: FontWeight.bold)),
+        leading: SizedBox(),
+      ),
         body: BlocListener(
           bloc: _merchantBloc,
           listener: (c, MerchantState state) async {
@@ -42,7 +49,7 @@ class ListMerchantScreenState extends State<ListMerchantScreen> {
 
             if (state is GetMerchantsListState) {
               EasyLoading.dismiss();
-              print(state.response.first.name);
+              listMerchants = state.response;
             }
 
             if (state is ErrorState) {
@@ -59,7 +66,21 @@ class ListMerchantScreenState extends State<ListMerchantScreen> {
 
   Widget body(BuildContext context, MerchantState state) {
     // TODO: Implement build
-    return Container(
+    return ListView.builder(
+      itemCount: listMerchants.length,
+      shrinkWrap: true,
+      itemBuilder: (context, index) {
+        return MerchantCell(name: listMerchants[index].name,
+            imageUrl: listMerchants[index].images!.first.url,
+            onTap: (){
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext context) => DetailMerchantScreen(listMerchants[index])));
+            });
+      },
     );
   }
+
+
 }
