@@ -4,7 +4,11 @@ import 'package:mobile_app_engineer/screens/splash_screen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import 'globals/ioc_container.dart';
+
 void main() {
+  setupIocContainer();
+
   runApp(MyApp());
 }
 

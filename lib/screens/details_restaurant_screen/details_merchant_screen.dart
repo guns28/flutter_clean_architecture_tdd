@@ -2,11 +2,12 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_app_engineer/globals/constants.dart';
-import 'package:mobile_app_engineer/globals/utilities.dart';
 import 'package:mobile_app_engineer/models/list_merchants_response.dart';
-import 'package:mobile_app_engineer/models/opening_day_model.dart';
-import 'package:url_launcher/url_launcher.dart';
-
+import 'package:mobile_app_engineer/screens/details_restaurant_screen/details_restaurant_componments/days_widget.dart';
+import 'package:mobile_app_engineer/screens/details_restaurant_screen/details_restaurant_componments/rating_widget.dart';
+import 'package:mobile_app_engineer/screens/details_restaurant_screen/details_restaurant_componments/website_widget.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'details_restaurant_componments/phone_widget.dart';
 
 class DetailMerchantScreen extends StatefulWidget {
   final Merchant merchant;
@@ -30,6 +31,9 @@ class DetailMerchantScreenState extends State<DetailMerchantScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          iconTheme: IconThemeData(
+            color: Colors.white, //change your color here
+          ),
           title: Text(widget.merchant.name,
               style: TextStyle(
                   color: Colors.white,
@@ -43,6 +47,7 @@ class DetailMerchantScreenState extends State<DetailMerchantScreen> {
             Flexible(
               child: Stack(
                 children: <Widget>[
+                  widget.merchant.images != null && widget.merchant.images!.length > 0 ?
                   CarouselSlider(
                     options: CarouselOptions(
                         autoPlay: true, enlargeCenterPage: true),
@@ -67,7 +72,7 @@ class DetailMerchantScreenState extends State<DetailMerchantScreen> {
                           ),
                         )
                         .toList(),
-                  ),
+                  ) : SizedBox(),
                   SingleChildScrollView(
                       controller: _scrollController,
                       scrollDirection: Axis.vertical,
@@ -84,25 +89,23 @@ class DetailMerchantScreenState extends State<DetailMerchantScreen> {
                                     topLeft: Radius.circular(32),
                                   ),
                                   color: Colors.white),
-                              margin: EdgeInsets.only(top: 266, bottom: 40),
+                              margin:  widget.merchant.images != null && widget.merchant.images!.length > 0 ? EdgeInsets.only(top: 266, bottom: 40) : EdgeInsets.only(top: 20, bottom: 40),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  _ratingCell(widget.merchant.reviewScore),
+                                  RatingWidget().ratingCell(widget.merchant.reviewScore, context),
                                   Padding(
                                       padding:
                                           EdgeInsets.symmetric(vertical: 12),
                                       child: Divider(color: orange)),
-                                  Text("About",
+                                  Text(AppLocalizations.of(context)!.about,
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 24,
                                           color: orange)),
                                   SizedBox(height: 8),
-                                  _linkCell(
-                                      Icon(Icons.link, size: 32), widget.merchant.links!.first.href),
-                                  _phoneCell(Icon(Icons.phone, size: 32),
-                                      widget.merchant.phoneNumber),
+                                  WebsiteWidget().websiteCell(Icon(Icons.link, size: 32), widget.merchant.links != null && widget.merchant.links!.length > 0 ? widget.merchant.links!.first.href : ""),
+                                  PhoneWidget().phoneCell(Icon(Icons.phone, size: 32), widget.merchant.phoneNumber),
                                   _addressCell(
                                       Icon(Icons.location_on, size: 32),
                                       "${widget.merchant.location.address.street} ${widget.merchant.location.address.district},  ${widget.merchant.location.address.zipcode} ${widget.merchant.location.address.city} "),
@@ -114,7 +117,7 @@ class DetailMerchantScreenState extends State<DetailMerchantScreen> {
                                 children: [
                                   Icon(Icons.access_time),
                                   SizedBox(width: 8),
-                                  Text("Open Today",
+                                  Text(AppLocalizations.of(context)!.open_today,
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 18,
@@ -122,7 +125,7 @@ class DetailMerchantScreenState extends State<DetailMerchantScreen> {
                                 ]
                               ),
                                   SizedBox(height: 8),
-                                _daysCell(widget.merchant.openingTimes.standardOpeningTimes)
+                                  DaysWidget().daysCell(widget.merchant.openingTimes.standardOpeningTimes)
                                 ],
                               ),
                             )
@@ -154,137 +157,5 @@ class DetailMerchantScreenState extends State<DetailMerchantScreen> {
           ],
         ));
   }
-
-  Widget _daysCell(StandardOpeningTimes standardOpeningTimes) {
-
-    List<OpeningDayModel> listDays = [];
-
-    standardOpeningTimes.toJson().forEach((key, value) {
-      if(value != null){
-        List<Day>? day = value as List<Day>;
-        listDays.add(OpeningDayModel(key, day.first.start, day.first.end));
-      }else{
-        listDays.add(OpeningDayModel(key, "N/A", "N/A"));
-      }
-    });
-    
-    return Column(
-      children: [
-        for(OpeningDayModel day in listDays)
-      Padding(
-          padding: EdgeInsets.symmetric(vertical: 4),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                day.day,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-              ),SizedBox(width: 16),
-              Row(
-                children: [
-                  Text(
-                    day.start,
-                    style: TextStyle(fontWeight: FontWeight.normal, fontSize: 18),
-                  ),
-                  Text(
-                    " - ",
-                    style: TextStyle(fontWeight: FontWeight.normal, fontSize: 18),
-                  ),
-                  Text(
-                    day.end,
-                    style: TextStyle(fontWeight: FontWeight.normal, fontSize: 18),
-                  )
-                ],
-              )
-            ],
-          ))
-      ],
-    );
-
-  }
-
-  Widget _phoneCell(Icon icon, String title) {
-    return GestureDetector(
-      onTap: (){
-        _launchURL("tel:$title");
-      } ,
-      child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 4),
-          child: Row(
-            children: [
-              icon,
-              SizedBox(width: 8),
-              Text(
-                title,
-                style: TextStyle(
-                    decoration: TextDecoration.underline,
-                    fontWeight: FontWeight.normal,
-                    fontSize: 16),
-              )
-            ],
-          )
-      ),
-    );
-  }
-
-  Widget _linkCell(Icon icon, String url) {
-    return GestureDetector(
-      onTap: (){
-        _launchURL(url);
-      } ,
-      child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 4),
-          child: Row(
-            children: [
-              icon,
-              SizedBox(width: 8),
-              Text(
-                "Website",
-                style: TextStyle(
-                    decoration: TextDecoration.underline,
-                    fontWeight: FontWeight.normal,
-                    fontSize: 16),
-              )
-            ],
-          )
-      ),
-    );
-  }
-
-  Widget _ratingCell(String rating){
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-
-        SizedBox(height: 8),
-        Row(
-          children: [
-            Text(Utilities.getRatingDescription(double.parse(rating)),
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                    color: Utilities.getRatingColor(double.parse(rating)))),
-            SizedBox(width: 20),
-            Container(
-              height: 30,
-              padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-              decoration: BoxDecoration(
-                color: Utilities.getRatingColor(double.parse(rating)),
-                borderRadius:
-                BorderRadius.all(Radius.circular(16)),
-              ),
-              child: Text("$rating/6",
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                      color: Colors.white)),
-            ),
-          ],
-        )
-      ],
-    );
-  }
-
-  void _launchURL(String _url) async =>
-      await canLaunch(_url) ? await launch(_url) : throw 'Could not launch $_url';
+  
 }

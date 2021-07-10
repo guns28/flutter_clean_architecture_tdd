@@ -71,7 +71,7 @@ class ListMerchantScreenState extends State<ListMerchantScreen> {
       shrinkWrap: true,
       itemBuilder: (context, index) {
         return MerchantCell(name: listMerchants[index].name,
-            imageUrl: listMerchants[index].images!.first.url,
+            imageUrl: listMerchants[index].images!.length > 0 ? listMerchants[index].images!.first.url : "https://via.placeholder.com/350x150",
             onTap: (){
               Navigator.push(
                   context,

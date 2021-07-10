@@ -4,6 +4,48 @@
   "demo_app": "DEMO APP",
   "@demo_app": {
     "description": "text"
+  },
+
+  "excellent": "Excellent",
+  "@excellent": {
+    "description": "text"
+  },
+
+  "very_good": "Very Good",
+  "@very_good": {
+    "description": "text"
+  },
+
+  "good": "Good",
+  "@good": {
+    "description": "text"
+  },
+
+  "average": "Average",
+  "@average": {
+    "description": "text"
+  },
+
+  "not_good": "Not good",
+  "@not_good": {
+    "description": "text"
+  },
+
+  "awful": "Awful",
+  "@awful": {
+    "description": "text"
+  },
+
+  "about": "About",
+  "@about": {
+    "description": "text"
+  },
+
+  "open_today": "Open Today",
+  "@open_today": {
+    "description": "text"
   }
+
+
 
 }

@@ -1,3 +1,4 @@
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 mixin Utilities {
@@ -20,21 +21,21 @@ mixin Utilities {
     }
   }
 
-  static String getRatingDescription(double rating){
+  static String getRatingDescription(double rating, BuildContext context){
     if(rating == 6){
-      return "Excellent";
+      return AppLocalizations.of(context)!.excellent;
     }else if(rating >= 5 && rating < 6){
-      return "Very good";
+      return AppLocalizations.of(context)!.very_good;
     }else if(rating >= 4 && rating < 5){
-      return "Good";
+      return AppLocalizations.of(context)!.good;
     }else if(rating >= 3 && rating < 4){
-      return "Average";
+      return AppLocalizations.of(context)!.average;
     }else if(rating >= 2 && rating < 3){
-      return "Not good";
+      return AppLocalizations.of(context)!.not_good;
     }else if(rating >= 1 && rating < 2){
-      return "Awful";
+      return AppLocalizations.of(context)!.awful;
     }else{
-      return "Awful";
+      return AppLocalizations.of(context)!.awful;
     }
   }
 
