@@ -16,7 +16,7 @@ class MerchantRepository implements MerchantRepositoryInterface {
     var url = "$baseUrl$listMerchants?limit=$number";
 
     final Response response = await http.get(Uri.parse(url));
-    final jsonDecoded = json.decode(utf8.decode(response.bodyBytes));
+    final jsonDecoded = json.decode(utf8.decode(response.bodyBytes)) as Map<String, dynamic>;
 
     if (response.statusCode == 200) {
       return ListMerchantsResponse.fromJson(jsonDecoded).merchants ?? List<Merchant>.empty();
