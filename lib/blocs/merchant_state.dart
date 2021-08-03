@@ -12,6 +12,7 @@ class MerchantInitial extends MerchantState {
 class GetMerchantsListState extends MerchantState {
   final List<Merchant> response;
   GetMerchantsListState(this.response);
+
   @override
   List<Object> get props => [response];
 }

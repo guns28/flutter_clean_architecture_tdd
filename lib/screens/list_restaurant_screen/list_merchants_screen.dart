@@ -4,6 +4,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:mobile_app_engineer/blocs/merchant_bloc.dart';
 import 'package:mobile_app_engineer/models/list_merchants_response.dart';
+import 'package:mobile_app_engineer/repositories/merchant_repository.dart';
 import 'package:mobile_app_engineer/screens/details_restaurant_screen/details_merchant_screen.dart';
 import 'package:mobile_app_engineer/screens/list_restaurant_screen/merchant_cell.dart';
 
@@ -15,14 +16,17 @@ class ListMerchantScreen extends StatefulWidget {
 }
 
 class ListMerchantScreenState extends State<ListMerchantScreen> {
+  late MerchantRepository merchantRepository;
+  late MerchantBloc _merchantBloc;
 
-  final _merchantBloc = MerchantBloc();
   List<Merchant> listMerchants = [];
-
 
   @override
   void initState() {
     super.initState();
+    merchantRepository = MerchantRepository();
+    _merchantBloc = MerchantBloc(merchantRepository);
+
     _merchantBloc.add(GetMerchantsList(120));
   }
 
