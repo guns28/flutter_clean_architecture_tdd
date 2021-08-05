@@ -10,17 +10,18 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'details_restaurant_componments/phone_widget.dart';
 
 class DetailMerchantScreen extends StatefulWidget {
+  const DetailMerchantScreen(this.merchant);
   final Merchant merchant;
-  DetailMerchantScreen(this.merchant);
 
   @override
   State<StatefulWidget> createState() {
-    return new DetailMerchantScreenState();
+    return DetailMerchantScreenState();
   }
 }
 
+
 class DetailMerchantScreenState extends State<DetailMerchantScreen> {
-  ScrollController _scrollController = new ScrollController();
+  final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
@@ -31,92 +32,91 @@ class DetailMerchantScreenState extends State<DetailMerchantScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          iconTheme: IconThemeData(
+          iconTheme: const IconThemeData(
             color: Colors.white, //change your color here
           ),
           title: Text(widget.merchant.name,
-              style: TextStyle(
+              style: const TextStyle(
                   color: Colors.white,
                   fontSize: 24,
                   fontWeight: FontWeight.bold)),
         ),
-        body: Container(
-            child: Column(
+        body: Column(
           children: <Widget>[
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Flexible(
               child: Stack(
                 children: <Widget>[
-                  widget.merchant.images != null && widget.merchant.images!.length > 0 ?
-                  CarouselSlider(
+                  if (widget.merchant.images != null && widget.merchant.images!.isNotEmpty) CarouselSlider(
                     options: CarouselOptions(
                         autoPlay: true, enlargeCenterPage: true),
                     items: widget.merchant.images!
                         .map(
                           (item) => CachedNetworkImage(
                             imageUrl: item.url,
-                            imageBuilder: (context, imageProvider) => Container(
+                            imageBuilder: (BuildContext context, ImageProvider<Object> imageProvider) => Container(
                               height: 175,
                               decoration: BoxDecoration(
                                   borderRadius:
-                                      BorderRadius.all(Radius.circular(16)),
+                                      const BorderRadius.all(Radius.circular(16)),
                                   image: DecorationImage(
                                     image: imageProvider,
                                     fit: BoxFit.fill,
                                   )),
                             ),
-                            placeholder: (context, url) =>
-                                CircularProgressIndicator(),
-                            errorWidget: (context, url, error) =>
-                                Icon(Icons.error),
+                            placeholder: (BuildContext context, String url) =>
+                                const CircularProgressIndicator(),
+                            errorWidget: (BuildContext context, String url, error) =>
+                                const Icon(Icons.error),
                           ),
                         )
                         .toList(),
-                  ) : SizedBox(),
+                  ) else const SizedBox(),
                   SingleChildScrollView(
                       controller: _scrollController,
-                      scrollDirection: Axis.vertical,
                       clipBehavior: Clip.none,
                       child: Column(children: <Widget>[
                         Stack(
                           children: <Widget>[
                             Container(
                               width: MediaQuery.of(context).size.width,
-                              padding: EdgeInsets.all(20),
-                              decoration: BoxDecoration(
+                              padding: const EdgeInsets.all(20),
+                              decoration: const BoxDecoration(
                                   borderRadius: BorderRadius.only(
                                     topRight: Radius.circular(32),
                                     topLeft: Radius.circular(32),
                                   ),
                                   color: Colors.white),
-                              margin:  widget.merchant.images != null && widget.merchant.images!.length > 0 ? EdgeInsets.only(top: 266, bottom: 40) : EdgeInsets.only(top: 20, bottom: 40),
+                              margin:  widget.merchant.images != null && widget.merchant.images!.isNotEmpty
+                                  ? const EdgeInsets.only(top: 266, bottom: 40)
+                                  : const EdgeInsets.only(top: 20, bottom: 40),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   RatingWidget().ratingCell(widget.merchant.reviewScore, context),
                                   Padding(
                                       padding:
-                                          EdgeInsets.symmetric(vertical: 12),
+                                          const EdgeInsets.symmetric(vertical: 12),
                                       child: Divider(color: orange)),
                                   Text(AppLocalizations.of(context)!.about,
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 24,
                                           color: orange)),
-                                  SizedBox(height: 8),
-                                  WebsiteWidget().websiteCell(Icon(Icons.link, size: 32), widget.merchant.links != null && widget.merchant.links!.length > 0 ? widget.merchant.links!.first.href : ""),
-                                  PhoneWidget().phoneCell(Icon(Icons.phone, size: 32), widget.merchant.phoneNumber),
+                                  const SizedBox(height: 8),
+                                  WebsiteWidget().websiteCell(const Icon(Icons.link, size: 32), widget.merchant.links != null && widget.merchant.links!.isNotEmpty ? widget.merchant.links!.first.href : ""),
+                                  PhoneWidget().phoneCell(const Icon(Icons.phone, size: 32), widget.merchant.phoneNumber),
                                   _addressCell(
-                                      Icon(Icons.location_on, size: 32),
-                                      "${widget.merchant.location.address.street} ${widget.merchant.location.address.district},  ${widget.merchant.location.address.zipcode} ${widget.merchant.location.address.city} "),
+                                      const Icon(Icons.location_on, size: 32),
+                                      '${widget.merchant.location.address.street} ${widget.merchant.location.address.district},  ${widget.merchant.location.address.zipcode} ${widget.merchant.location.address.city} '),
                                   Padding(
                                       padding:
-                                          EdgeInsets.symmetric(vertical: 12),
+                                          const EdgeInsets.symmetric(vertical: 12),
                                       child: Divider(color: orange)),
                               Row(
                                 children: [
-                                  Icon(Icons.access_time),
-                                  SizedBox(width: 8),
+                                  const Icon(Icons.access_time),
+                                  const SizedBox(width: 8),
                                   Text(AppLocalizations.of(context)!.open_today,
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
@@ -124,7 +124,7 @@ class DetailMerchantScreenState extends State<DetailMerchantScreen> {
                                           color: orange))
                                 ]
                               ),
-                                  SizedBox(height: 8),
+                                  const SizedBox(height: 8),
                                   DaysWidget().daysCell(widget.merchant.openingTimes.standardOpeningTimes)
                                 ],
                               ),
@@ -137,23 +137,24 @@ class DetailMerchantScreenState extends State<DetailMerchantScreen> {
             )
           ],
         ) /* add child content here */
-            ));
+            );
   }
 
   Widget _addressCell(Icon icon, String title) {
     return Padding(
-        padding: EdgeInsets.symmetric(vertical: 4),
+        padding: const EdgeInsets.symmetric(vertical: 4),
         child: Row(
           children: [
             icon,
-            SizedBox(width: 8),
-            Container(
+            const SizedBox(width: 8),
+            SizedBox(
                 width: MediaQuery.of(context).size.width - 80,
                 child: Text(
                   title,
                   maxLines: 3,
-                  style: TextStyle(fontWeight: FontWeight.normal, fontSize: 18),
-                ))
+                  style: const TextStyle(fontWeight: FontWeight.normal, fontSize: 18),
+                )
+            )
           ],
         ));
   }

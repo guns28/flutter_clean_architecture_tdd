@@ -8,8 +8,8 @@ part 'merchant_event.dart';
 part 'merchant_state.dart';
 
 class MerchantBloc extends Bloc<MerchantEvent, MerchantState> {
-  final MerchantRepository merchantRepository;
   MerchantBloc(this.merchantRepository) : super(MerchantInitial()) ;
+  final MerchantRepository merchantRepository;
 
   @override
   Stream<MerchantState> mapEventToState(
@@ -19,10 +19,10 @@ class MerchantBloc extends Bloc<MerchantEvent, MerchantState> {
     if (event is GetMerchantsList) {
       yield MerchantInitial();
       try {
-        final listMerchants = await merchantRepository.fetchMerchants(event.nbMerchants);
+        final List<Merchant> listMerchants = await merchantRepository.fetchMerchants(event.nbMerchants);
         yield GetMerchantsListState(listMerchants);
-      } on NetworkError {
-        yield ErrorState("Couldn't fetch merchants. Is the device online?");
+      } on Exception {
+        yield const ErrorState("Couldn't fetch merchants. Is the device online?");
       }
     }
   }

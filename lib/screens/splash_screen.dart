@@ -5,7 +5,7 @@ import 'list_restaurant_screen/list_merchants_screen.dart';
 class SplashScreen extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return new SplashScreenState();
+    return SplashScreenState();
   }
 }
 
@@ -14,7 +14,7 @@ class SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration(seconds: 1), () {
+    Future.delayed(const Duration(seconds: 1), () {
       Navigator.push(
           context,
           MaterialPageRoute(
@@ -28,7 +28,7 @@ class SplashScreenState extends State<SplashScreen> {
     return Scaffold(
       body: Center(
         child: Text(AppLocalizations.of(context)!.demo_app,
-        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+        style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
       ),
     );
   }

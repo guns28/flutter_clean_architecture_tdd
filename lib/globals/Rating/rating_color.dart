@@ -1,8 +1,7 @@
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
-
 class RatingColor {
+
   Color getRatingColor(double rating){
     if(rating == 6){
       return Colors.green;

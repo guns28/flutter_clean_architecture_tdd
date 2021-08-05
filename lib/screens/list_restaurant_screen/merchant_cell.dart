@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 class MerchantCell extends StatelessWidget {
-  final String name;
-  final String imageUrl;
-  final Function onTap;
 
   const MerchantCell(
       {required this.name, required this.imageUrl, required this.onTap});
+
+  final String name;
+  final String imageUrl;
+  final Function onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -15,14 +16,14 @@ class MerchantCell extends StatelessWidget {
       onTap: (){
         onTap();
       },child: Container(
-      margin: EdgeInsets.symmetric(vertical: 4, horizontal: 16),
+      margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
       child: Card(
           elevation: 5,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16.0),
           ),
           child: Container(
-            padding: EdgeInsets.all(16),
+            padding: const EdgeInsets.all(16),
             child: Column(
               children: [
                 CachedNetworkImage(
@@ -30,7 +31,7 @@ class MerchantCell extends StatelessWidget {
                   imageBuilder: (context, imageProvider) => Container(
                     height: 175,
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
+                        borderRadius: const BorderRadius.only(
                           topRight: Radius.circular(16),
                           topLeft: Radius.circular(16),
                         ),
@@ -39,11 +40,11 @@ class MerchantCell extends StatelessWidget {
                           fit: BoxFit.fill,
                         )),
                   ),
-                  placeholder: (context, url) => CircularProgressIndicator(),
-                  errorWidget: (context, url, error) => Icon(Icons.error),
+                  placeholder: (BuildContext context, String url) => const CircularProgressIndicator(),
+                  errorWidget: (BuildContext context, String url, dynamic error) => const Icon(Icons.error),
                 ),
-                SizedBox(height: 12),
-                Text(name, style: TextStyle(
+                const SizedBox(height: 12),
+                Text(name, style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold
                 ))

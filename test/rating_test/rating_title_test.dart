@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_app_engineer/globals/Rating/RatingTitle.dart';
+import 'package:mobile_app_engineer/globals/Rating/rating_title.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';

@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
       ],
       supportedLocales: [
         const Locale('en', ''), // English, no country code
-        const Locale('es', ''), // Spanish, no country code
+        const Locale('de', ''), // German, no country code
       ],
       theme: ThemeData(
         primarySwatch: Colors.orange,

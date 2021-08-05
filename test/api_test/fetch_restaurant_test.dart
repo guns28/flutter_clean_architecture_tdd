@@ -103,18 +103,18 @@ void main() {
         when(mockMerchantRepository.fetchMerchants(1)).thenAnswer((_) async => merchantList);
         return MerchantBloc(mockMerchantRepository);
       },
-      act: (bloc) => bloc.add(GetMerchantsList(1)),
+      act: (bloc) => bloc.add(const GetMerchantsList(1)),
       expect: () => [MerchantInitial(), GetMerchantsListState(merchantList)],
     );
 
     blocTest<MerchantBloc, MerchantState>(
       'Check error state when fetching merchants',
       build: () {
-        when(mockMerchantRepository.fetchMerchants(1)).thenThrow(NetworkError());
+        when(mockMerchantRepository.fetchMerchants(1)).thenThrow(Exception());
         return MerchantBloc(mockMerchantRepository);
       },
-      act: (bloc) => bloc.add(GetMerchantsList(1)),
-      expect: () => [MerchantInitial(), ErrorState("Couldn't fetch merchants. Is the device online?")],
+      act: (MerchantBloc bloc) => bloc.add(const GetMerchantsList(1)),
+      expect: () => [MerchantInitial(), const ErrorState("Couldn't fetch merchants. Is the device online?")],
     );
 
   });

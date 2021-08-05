@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 
 class RatingTitle {
 
-
-
   String getRatingDescription(double rating, BuildContext context){
     if(rating == 6){
       return AppLocalizations.of(context)?.excellent ?? "Excellent";

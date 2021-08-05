@@ -5,8 +5,9 @@ abstract class MerchantEvent extends Equatable {
 }
 
 class GetMerchantsList extends MerchantEvent {
-  final int nbMerchants ;
   const GetMerchantsList(this.nbMerchants);
+
+  final int nbMerchants ;
 
   List<Object> get props => [];
 }

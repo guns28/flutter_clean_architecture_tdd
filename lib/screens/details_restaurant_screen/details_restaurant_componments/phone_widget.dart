@@ -5,21 +5,21 @@ import 'package:mobile_app_engineer/services/launch_url_service.dart';
 class PhoneWidget {
 
   Widget phoneCell(Icon icon, String title) {
-    final launchUrlService = container.resolve<LaunchUrlService>();
+    final LaunchUrlService launchUrlService = container.resolve<LaunchUrlService>();
 
     return GestureDetector(
       onTap: (){
         launchUrlService.launchURL("tel:$title");
       } ,
       child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 4),
+          padding: const EdgeInsets.symmetric(vertical: 4),
           child: Row(
             children: [
               icon,
-              SizedBox(width: 8),
+              const SizedBox(width: 8),
               Text(
                 title,
-                style: TextStyle(
+                style: const TextStyle(
                     decoration: TextDecoration.underline,
                     fontWeight: FontWeight.normal,
                     fontSize: 16),

@@ -5,7 +5,7 @@ import 'package:mobile_app_engineer/services/launch_url_service.dart';
 class WebsiteWidget {
 
   Widget websiteCell(Icon icon, String url) {
-    final launchUrlService = container.resolve<LaunchUrlService>();
+    final LaunchUrlService launchUrlService = container.resolve<LaunchUrlService>();
 
     return GestureDetector(
       onTap: (){
@@ -17,7 +17,7 @@ class WebsiteWidget {
             children: [
               icon,
               SizedBox(width: 8),
-              Text(
+              const Text(
                 "Website",
                 style: TextStyle(
                     decoration: TextDecoration.underline,

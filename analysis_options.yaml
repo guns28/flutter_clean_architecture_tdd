@@ -24,16 +24,17 @@ linter:
     sort_constructors_first: true
 
     # The new tabs vs. spaces. Choose wisely
-    prefer_single_quotes: true
-    prefer_double_quotes: true
+    prefer_single_quotes: false
+    prefer_double_quotes: false
 
     # Good packages document everything
-    public_member_api_docs: true
+    public_member_api_docs: false
 
     # Blindly follow the Flutter code style, which prefers types everywhere
     always_specify_types: true
 
     # Back to the 80s
-    lines_longer_than_80_chars: true
+    lines_longer_than_80_chars: false
 
     avoid_returning_null_for_future: true
+

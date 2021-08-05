@@ -10,16 +10,17 @@ class MerchantInitial extends MerchantState {
 }
 
 class GetMerchantsListState extends MerchantState {
+  const GetMerchantsListState(this.response);
+
   final List<Merchant> response;
-  GetMerchantsListState(this.response);
 
   @override
   List<Object> get props => [response];
 }
 
 class ErrorState extends MerchantState {
+  const ErrorState(this.error);
   final String error;
-  ErrorState(this.error);
   @override
   List<Object> get props => [error];
 }

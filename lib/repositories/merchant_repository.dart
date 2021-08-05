@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart';
 import 'package:mobile_app_engineer/globals/constants.dart';
 import 'package:mobile_app_engineer/models/list_merchants_response.dart';
@@ -13,17 +12,15 @@ abstract class MerchantRepositoryInterface {
 class MerchantRepository implements MerchantRepositoryInterface {
   @override
   Future<List<Merchant>> fetchMerchants(int number) async {
-    var url = "$baseUrl$listMerchants?limit=$number";
+    final String url = "$baseUrl$listMerchants?limit=$number";
 
     final Response response = await http.get(Uri.parse(url));
-    final jsonDecoded = json.decode(utf8.decode(response.bodyBytes)) as Map<String, dynamic>;
+    final Map<String, dynamic> jsonDecoded = json.decode(utf8.decode(response.bodyBytes)) as Map<String, dynamic>;
 
     if (response.statusCode == 200) {
       return ListMerchantsResponse.fromJson(jsonDecoded).merchants ?? List<Merchant>.empty();
     }else{
-      throw NetworkError();
+      throw Exception();
     }
   }
 }
-
-class NetworkError extends Error {}
