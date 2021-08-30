@@ -2,14 +2,14 @@ import 'dart:convert';
 
 import 'package:http/http.dart';
 import 'package:mobile_app_engineer/globals/constants.dart';
-import 'package:mobile_app_engineer/models/list_merchants_response.dart';
+import 'package:mobile_app_engineer/data/models/list_merchants_response.dart';
 import 'package:http/http.dart' as http;
 
-abstract class MerchantRepositoryInterface {
+abstract class MerchantsRemoteDataSource {
   Future<List<Merchant>> fetchMerchants(int number);
 }
 
-class MerchantRepository implements MerchantRepositoryInterface {
+class MerchantsRemoteDataSourceImpl implements MerchantsRemoteDataSource {
   @override
   Future<List<Merchant>> fetchMerchants(int number) async {
     final String url = "$baseUrl$listMerchants?limit=$number";

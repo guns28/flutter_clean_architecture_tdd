@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:test/test.dart';
-import 'package:mobile_app_engineer/globals/Rating/rating_color.dart';
+import 'package:mobile_app_engineer/logic/Rating/rating_color.dart';
 
 void main() {
     test('Get the Correct Color for rating', () {
-      final color = RatingColor();
+      final RatingColor color = RatingColor();
 
       expect(color.getRatingColor(1), Colors.deepOrangeAccent);
       expect(color.getRatingColor(2), Colors.orange);

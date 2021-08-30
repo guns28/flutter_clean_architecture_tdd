@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_app_engineer/globals/Rating/rating_color.dart';
-import 'package:mobile_app_engineer/globals/Rating/rating_title.dart';
-import 'package:mobile_app_engineer/globals/ioc_container.dart';
+import 'package:kiwi/kiwi.dart';
+import 'package:mobile_app_engineer/logic/Rating/rating_color.dart';
+import 'package:mobile_app_engineer/logic/Rating/rating_title.dart';
 
 class RatingWidget {
 
   Widget ratingCell(String rating, BuildContext context) {
-
+    final container = KiwiContainer();
     final RatingColor ratingColor = container.resolve<RatingColor>();
     final RatingTitle ratingTitle = container.resolve<RatingTitle>();
 

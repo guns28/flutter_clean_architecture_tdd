@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_app_engineer/models/list_merchants_response.dart';
-import 'package:mobile_app_engineer/models/opening_day_model.dart';
+import 'package:mobile_app_engineer/data/models/list_merchants_response.dart';
+import 'package:mobile_app_engineer/domain/entities/opening_day_model.dart';
 
 class DaysWidget {
 

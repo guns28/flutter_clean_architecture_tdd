@@ -28,7 +28,7 @@ class MerchantCell extends StatelessWidget {
               children: [
                 CachedNetworkImage(
                   imageUrl: imageUrl,
-                  imageBuilder: (context, imageProvider) => Container(
+                  imageBuilder: (BuildContext context, ImageProvider<Object> imageProvider) => Container(
                     height: 175,
                     decoration: BoxDecoration(
                         borderRadius: const BorderRadius.only(
@@ -38,7 +38,8 @@ class MerchantCell extends StatelessWidget {
                         image: DecorationImage(
                           image: imageProvider,
                           fit: BoxFit.fill,
-                        )),
+                        )
+                    ),
                   ),
                   placeholder: (BuildContext context, String url) => const CircularProgressIndicator(),
                   errorWidget: (BuildContext context, String url, dynamic error) => const Icon(Icons.error),
@@ -50,7 +51,8 @@ class MerchantCell extends StatelessWidget {
                 ))
               ],
             ),
-          )),
+          )
+      ),
     ),
     );
   }

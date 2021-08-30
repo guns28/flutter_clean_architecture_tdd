@@ -1,22 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_app_engineer/globals/ioc_container.dart';
+import 'package:kiwi/kiwi.dart';
 import 'package:mobile_app_engineer/services/launch_url_service.dart';
 
 class WebsiteWidget {
-
   Widget websiteCell(Icon icon, String url) {
-    final LaunchUrlService launchUrlService = container.resolve<LaunchUrlService>();
+    final container = KiwiContainer();
+
+    final LaunchUrlService launchUrlService =
+        container.resolve<LaunchUrlService>();
 
     return GestureDetector(
-      onTap: (){
+      onTap: () {
         launchUrlService.launchURL(url);
-      } ,
-      child:Padding(
-          padding: EdgeInsets.symmetric(vertical: 4),
+      },
+      child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 4),
           child: Row(
             children: [
               icon,
-              SizedBox(width: 8),
+              const SizedBox(width: 8),
               const Text(
                 "Website",
                 style: TextStyle(
@@ -26,7 +28,7 @@ class WebsiteWidget {
               )
             ],
           )
-      ),
+        ),
     );
   }
 }

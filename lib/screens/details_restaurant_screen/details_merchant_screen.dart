@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_app_engineer/globals/constants.dart';
-import 'package:mobile_app_engineer/models/list_merchants_response.dart';
+import 'package:mobile_app_engineer/data/models/list_merchants_response.dart';
 import 'package:mobile_app_engineer/screens/details_restaurant_screen/details_restaurant_componments/days_widget.dart';
 import 'package:mobile_app_engineer/screens/details_restaurant_screen/details_restaurant_componments/rating_widget.dart';
 import 'package:mobile_app_engineer/screens/details_restaurant_screen/details_restaurant_componments/website_widget.dart';

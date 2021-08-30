@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_app_engineer/globals/Rating/rating_title.dart';
+import 'package:mobile_app_engineer/logic/Rating/rating_title.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -8,10 +8,10 @@ class MockBuildContext extends Mock implements BuildContext {}
 
 void main() {
 
-  MockBuildContext _context = MockBuildContext();
+  final MockBuildContext _context = MockBuildContext();
 
   test('Get the Correct title for rating', () {
-    final title = RatingTitle();
+    final RatingTitle title = RatingTitle();
 
     expect(title.getRatingDescription(6, _context), "Excellent");
     expect(title.getRatingDescription(5, _context), "Very Good");

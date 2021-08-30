@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_app_engineer/globals/ioc_container.dart';
+import 'package:kiwi/kiwi.dart';
 import 'package:mobile_app_engineer/services/launch_url_service.dart';
 
 class PhoneWidget {
 
   Widget phoneCell(Icon icon, String title) {
+    final container = KiwiContainer();
     final LaunchUrlService launchUrlService = container.resolve<LaunchUrlService>();
 
     return GestureDetector(

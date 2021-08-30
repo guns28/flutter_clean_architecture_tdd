@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:mobile_app_engineer/blocs/merchant_bloc.dart';
-import 'package:mobile_app_engineer/models/list_merchants_response.dart';
-import 'package:mobile_app_engineer/repositories/merchant_repository.dart';
+import 'package:kiwi/kiwi.dart';
+import 'package:mobile_app_engineer/data/models/list_merchants_response.dart';
+import 'package:mobile_app_engineer/domain/usecases/get_merchants.dart';
+import 'package:mobile_app_engineer/dependency_injection/injector.dart';
 import 'package:mobile_app_engineer/screens/details_restaurant_screen/details_merchant_screen.dart';
+import 'package:mobile_app_engineer/screens/list_restaurant_screen/business_logic/merchant_cubit.dart';
 import 'package:mobile_app_engineer/screens/list_restaurant_screen/merchant_cell.dart';
 
 class ListMerchantScreen extends StatefulWidget {
@@ -15,23 +17,18 @@ class ListMerchantScreen extends StatefulWidget {
 }
 
 class ListMerchantScreenState extends State<ListMerchantScreen> {
-  late MerchantRepository merchantRepository;
-  late MerchantBloc _merchantBloc;
-
   List<Merchant> listMerchants = [];
+  late MerchantCubit merchantCubit;
+  final container = KiwiContainer();
 
   @override
   void initState() {
     super.initState();
-    merchantRepository = MerchantRepository();
-    _merchantBloc = MerchantBloc(merchantRepository);
 
-    _merchantBloc.add(GetMerchantsList(120));
   }
 
   @override
   void dispose() {
-    _merchantBloc.close();
     super.dispose();
   }
 
@@ -43,8 +40,7 @@ class ListMerchantScreenState extends State<ListMerchantScreen> {
             fontWeight: FontWeight.bold)),
         leading: const SizedBox(),
       ),
-        body: BlocListener(
-          bloc: _merchantBloc,
+        body: BlocListener<MerchantCubit, MerchantState>(
           listener: (BuildContext c, MerchantState state) async {
             if (state is MerchantInitial) {
               EasyLoading.show(status: 'Please Wait...');
@@ -59,19 +55,34 @@ class ListMerchantScreenState extends State<ListMerchantScreen> {
               EasyLoading.dismiss();
             }
           },
-          child: BlocBuilder(
-              bloc: _merchantBloc,
-              builder: (c, MerchantState state) {
-                return body(c, state);
+          child:BlocBuilder<MerchantCubit, MerchantState>(
+              builder: (BuildContext c, MerchantState state) {
+                print("state $state");
+                if (state is MerchantInitial) {
+                  BlocProvider.of<MerchantCubit>(context).merchantsGet(nbMerchants: 10);
+                  return Container();
+                } else if (state is GetMerchantsListState) {
+                  return body(c, state);
+                } else {
+                  return Center(
+                    child: Text("Server failure", style: Theme.of(context).textTheme.headline4),
+                  );
+                }
               }),
-        ));
+        )
+    );
   }
 
   Widget body(BuildContext context, MerchantState state) {
     // TODO: Implement build
+    return merchantList();
+  }
+
+  Widget merchantList(){
     return ListView.builder(
       itemCount: listMerchants.length,
       shrinkWrap: true,
+      key: const Key('merchant_list'),
       itemBuilder: (BuildContext context, int index) {
         return MerchantCell(name: listMerchants[index].name,
             imageUrl: listMerchants[index].images!.isNotEmpty
@@ -86,6 +97,5 @@ class ListMerchantScreenState extends State<ListMerchantScreen> {
       },
     );
   }
-
 
 }

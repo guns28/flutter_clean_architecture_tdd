@@ -1,10 +1,8 @@
-import 'package:bloc_test/bloc_test.dart';
+/*import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mobile_app_engineer/blocs/merchant_bloc.dart';
-import 'package:mobile_app_engineer/repositories/merchant_repository.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:mobile_app_engineer/models/list_merchants_response.dart';
+import 'package:mobile_app_engineer/data/models/list_merchants_response.dart';
 
 import 'fetch_restaurant_test.mocks.dart';
 
@@ -118,4 +116,4 @@ void main() {
     );
 
   });
-}
+}*/
