@@ -1,13 +1,12 @@
 import 'package:connectivity/connectivity.dart';
-import 'package:meta/meta.dart';
 
-abstract class NetworkInfoI {
+abstract class NetworkInfoInterface {
   Future<bool> isConnected();
   Future<ConnectivityResult> get connectivityResult;
   Stream<ConnectivityResult> get onConnectivityChanged;
 }
 
-class NetworkInfo implements NetworkInfoI {
+class NetworkInfo implements NetworkInfoInterface {
   final Connectivity connectivity;
   NetworkInfo({required this.connectivity});
 
