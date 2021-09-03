@@ -1,26 +1,33 @@
-import 'dart:convert';
+import 'dart:async';
 
-import 'package:http/http.dart';
-import 'package:mobile_app_engineer/globals/constants.dart';
+import 'package:logger/logger.dart';
+import 'package:dartz/dartz.dart';
+import 'package:mobile_app_engineer/core/api/merchant_api.dart';
+import 'package:mobile_app_engineer/core/errors/failure.dart';
 import 'package:mobile_app_engineer/data/models/list_merchants_response.dart';
-import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
 
 abstract class MerchantsRemoteDataSource {
-  Future<List<Merchant>> fetchMerchants(int number);
+  Future<Either<Failure, List<Merchant>>> fetchListMerchants(int number);
 }
 
 class MerchantsRemoteDataSourceImpl implements MerchantsRemoteDataSource {
+
+  MerchantsRemoteDataSourceImpl({required this.client});
+  final MerchantRestClient client;
+  final Logger logger = Logger();
+
   @override
-  Future<List<Merchant>> fetchMerchants(int number) async {
-    final String url = "$baseUrl$listMerchants?limit=$number";
+  Future<Either<Failure, List<Merchant>>> fetchListMerchants(int number) async {
+    try {
+      final ListMerchantsResponse merchantsResponse = await client.fetchMerchants(number);
 
-    final Response response = await http.get(Uri.parse(url));
-    final Map<String, dynamic> jsonDecoded = json.decode(utf8.decode(response.bodyBytes)) as Map<String, dynamic>;
-
-    if (response.statusCode == 200) {
-      return ListMerchantsResponse.fromJson(jsonDecoded).merchants ?? List<Merchant>.empty();
-    }else{
-      throw Exception();
+      if(merchantsResponse.merchants != null && merchantsResponse.merchants!.isNotEmpty){
+        return Right(merchantsResponse.merchants!);
+      }
+      return Left(ServerFailure());
+    } on DioError {
+      return Left(ServerFailure());
     }
   }
 }

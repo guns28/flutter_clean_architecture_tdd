@@ -1,5 +1,7 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:kiwi/kiwi.dart';
+import 'package:dio/dio.dart';
+import 'package:mobile_app_engineer/core/api/merchant_api.dart';
 import 'package:mobile_app_engineer/core/network/network_info.dart';
 import 'package:mobile_app_engineer/data/datasources/merchants/merchants_remote_data_source.dart';
 import 'package:mobile_app_engineer/data/repositories/merchants_repository_impl.dart';
@@ -14,11 +16,18 @@ part 'injector.g.dart';
 
 abstract class Injector {
 
+  KiwiContainer container = KiwiContainer();
+
   static void setup() {
     _$Injector().configure();
   }
 
   // Core module
+  void _configureArticlesFeatureModuleInstances() {
+    container.registerInstance(
+        MerchantRestClient(Dio(BaseOptions(contentType: "application/json"))));
+  }
+
   @Register.singleton(Connectivity)
   @Register.singleton(NetworkInfo, from: NetworkInfo)
 
@@ -32,6 +41,10 @@ abstract class Injector {
   @Register.factory(MerchantsRepository, from: MerchantsRepositoryImpl)
   @Register.factory(GetMerchants)
   @Register.factory(MerchantCubit)
+  void _configureCore();
 
-  void configure();
+  void configure(){
+    _configureCore();
+    _configureArticlesFeatureModuleInstances();
+  }
 }

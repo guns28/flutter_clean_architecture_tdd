@@ -39,6 +39,8 @@ dependencies:
   lint: ^1.5.3
   dartz: ^0.10.0
   connectivity:
+  retrofit: ^2.0.1
+  logger: any
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -53,6 +55,7 @@ dev_dependencies:
   mockito: ^5.0.13
   bloc_test: ^8.1.0
   kiwi_generator:
+  retrofit_generator: any
 
 
 

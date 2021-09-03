@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile_app_engineer/screens/list_restaurant_screen/list_merchants_screen.dart';
-import 'package:mobile_app_engineer/screens/splash_screen.dart';
-
 
 void main() {
 

@@ -22,13 +22,17 @@ class MerchantsRepositoryImpl extends MerchantsRepository {
     if (merchants.isNotEmpty) {
       return Right(merchants);
     } else if (await networkInfo.isConnected()) {
-      try {
-        final List<Merchant> remoteMerchants = await merchantRemoteDataSource.fetchMerchants(nbMerchants);
-        merchants = remoteMerchants;
-        return Right(remoteMerchants);
-      } on Exception {
-        return Left(ServerFailure());
-      }
+        try {
+          final response = await merchantRemoteDataSource.fetchListMerchants(nbMerchants);
+          return response.fold((Failure failure) => Left(failure), (List<Merchant> merchants) async {
+            if (merchants.isNotEmpty) {
+              return Right(merchants);
+            }
+            return Left(ServerFailure());
+          });
+        } on Exception catch (_) {
+          return Left(ServerFailure());
+        }
     } else {
       return Left(InternetFailure());
     }

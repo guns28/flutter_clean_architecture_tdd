@@ -17,7 +17,6 @@ class MerchantCubit extends Cubit<MerchantState> {
     emit(MerchantInitial());
     final Either<Failure, List<Merchant>> listMerchants =
     await getMerchants(MerchantsParams(nbMerchants: nbMerchants));
-    print(getMerchants);
     emit(
         listMerchants.fold(
                 (Failure failure) => ErrorState(_mapFailureToMessage(failure)),
