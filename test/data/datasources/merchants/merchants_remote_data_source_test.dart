@@ -120,7 +120,8 @@ void main() {
   test('should return failure when the call to rest client ends with Exception',
           () async {
         // arrange
-        when(mockMerchantClient.fetchMerchants(1)).thenThrow(Exception());
+        when(mockMerchantClient.fetchMerchants(1))
+            .thenThrow(DioError(requestOptions: RequestOptions( path: 'GET')));
 
         // act
         final result = await remoteDatasource.fetchListMerchants(1);
@@ -129,7 +130,6 @@ void main() {
         expect(result, Left(ServerFailure()));
         verify(mockMerchantClient.fetchMerchants(1));
         verifyNoMoreInteractions(mockMerchantClient);
-
   });
 
 }
