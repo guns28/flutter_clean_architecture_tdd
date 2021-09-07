@@ -1,6 +1,4 @@
 import 'dart:async';
-
-import 'package:logger/logger.dart';
 import 'package:dartz/dartz.dart';
 import 'package:mobile_app_engineer/core/api/merchant_api.dart';
 import 'package:mobile_app_engineer/core/errors/failure.dart';
@@ -15,7 +13,6 @@ class MerchantsRemoteDataSourceImpl implements MerchantsRemoteDataSource {
 
   MerchantsRemoteDataSourceImpl({required this.client});
   final MerchantRestClient client;
-  final Logger logger = Logger();
 
   @override
   Future<Either<Failure, List<Merchant>>> fetchListMerchants(int number) async {

@@ -16,7 +16,8 @@ part 'injector.g.dart';
 
 abstract class Injector {
 
-  KiwiContainer container = KiwiContainer();
+  static KiwiContainer container = KiwiContainer();
+  static final resolve = container.resolve;
 
   static void setup() {
     _$Injector().configure();
@@ -29,7 +30,8 @@ abstract class Injector {
   }
 
   @Register.singleton(Connectivity)
-  @Register.singleton(NetworkInfo, from: NetworkInfo)
+  @Register.singleton(NetworkInfoInterface, from: NetworkInfo)
+  @Register.factory(NetworkInfo)
 
   //merchant details
   @Register.singleton(LaunchUrlService)

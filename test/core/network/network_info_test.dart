@@ -12,7 +12,7 @@ class ConnectivityMock extends Mock implements Connectivity {}
 
 void main() {
   final MockConnectivityMock connectivity = MockConnectivityMock();
-  final NetworkInfoInterface networkInfo = NetworkInfo(connectivity: connectivity);
+  final NetworkInfo networkInfo = NetworkInfo(connectivity: connectivity);
 
     test(
       'Should Check internet connexion, return true if result is wifi / mobile, else return false',
