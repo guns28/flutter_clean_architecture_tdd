@@ -21,72 +21,89 @@ class NetworkInfoMock extends Mock implements NetworkInfo {}
   MockSpec<NetworkInfoMock>(returnNullOnMissingStub: true)
 ])
 void main() {
-  MockGetMerchantsMock getMerchantsMock = MockGetMerchantsMock();
-  MockNetworkInfoMock networkInfoMock = MockNetworkInfoMock();
+  final MockGetMerchantsMock getMerchantsMock = MockGetMerchantsMock();
+  final MockNetworkInfoMock networkInfoMock = MockNetworkInfoMock();
 
-  MerchantCubit merchantCubit =
+  final MerchantCubit merchantCubit =
       MerchantCubit(getMerchantsMock, networkInfoMock);
 
-  blocTest<MerchantCubit, MerchantState>(
-    'should emits [MerchantInitial, GetMerchantsListState] when cubit.merchantsGet is called succesfuly.',
-    build: () {
-      when(networkInfoMock.isConnected()).thenAnswer((_) => Future.value(true));
-      when(getMerchantsMock.call(const MerchantsParams(nbMerchants: 1)))
-          .thenAnswer(
-              (_) => Future.value(Right(merchantMockResponse.merchants!)));
-      return merchantCubit;
-    },
-    act: (MerchantCubit cubit) => cubit.merchantsGet(nbMerchants: 1),
-    expect: () => [
-      MerchantInitial(),
-      GetMerchantsListState(merchantMockResponse.merchants!)
-    ],
-    verify: (_) {
-      verifyInOrder([
-        networkInfoMock.isConnected(),
-        getMerchantsMock.call(const MerchantsParams(nbMerchants: 1))
-      ]);
-      verifyNoMoreInteractions(networkInfoMock);
-      verifyNoMoreInteractions(getMerchantsMock);
-    },
-  );
+  final MerchantCubit merchantFailCubit =
+  MerchantCubit(getMerchantsMock, networkInfoMock);
 
-  blocTest<MerchantCubit, MerchantState>(
-    'should emits [MerchantInitial, ErrorState] when cubit.merchantsGet is called fail.',
-    build: () {
-      when(networkInfoMock.isConnected()).thenAnswer((_) => Future.value(true));
-      when(getMerchantsMock.call(const MerchantsParams(nbMerchants: 1)))
-          .thenAnswer((_) => Future.value(Left(ServerFailure())));
-      return merchantCubit;
-    },
-    act: (MerchantCubit cubit) => cubit.merchantsGet(nbMerchants: 1),
-    expect: () => [MerchantInitial(), ErrorState(FailureMessage.server)],
-    verify: (_) {
-      verifyInOrder([
-        networkInfoMock.isConnected(),
-        getMerchantsMock.call(const MerchantsParams(nbMerchants: 1))
-      ]);
-      verifyNoMoreInteractions(networkInfoMock);
-      verifyNoMoreInteractions(getMerchantsMock);
-    },
-  );
+  final MerchantCubit merchantInternetFailCubit =
+  MerchantCubit(getMerchantsMock, networkInfoMock);
 
-  blocTest<MerchantCubit, MerchantState>(
-    'should emits [MerchantInitial, ErrorState] when cubit.merchantsGet is called with no internet connexion.',
-    build: () {
-      when(networkInfoMock.isConnected())
-          .thenAnswer((_) => Future.value(false));
-      when(networkInfoMock.onConnectivityChanged)
-          .thenAnswer((_) => Stream.fromIterable([ConnectivityResult.none]));
-      return merchantCubit;
-    },
-    act: (MerchantCubit cubit) => cubit.merchantsGet(nbMerchants: 1),
-    expect: () => [MerchantInitial(), ErrorState(FailureMessage.internet)],
-    verify: (_) {
-      verifyInOrder([
-        networkInfoMock.isConnected(),
-      ]);
-      verifyNoMoreInteractions(networkInfoMock);
-    },
-  );
+  group('merchant list fetch ', () {
+
+    blocTest(
+      'should emits [MerchantInitial, GetMerchantsListState] when cubit.merchantsGet is called succesfuly.',
+      build: () {
+        when(networkInfoMock.isConnected())
+            .thenAnswer((_) => Future.value(true));
+        when(getMerchantsMock.call(const MerchantsParams(nbMerchants: 1)))
+            .thenAnswer(
+                (_) => Future.value(Right(merchantMockResponse.merchants!)));
+        return merchantCubit;
+      },
+      act: (MerchantCubit cubit) => cubit.merchantsGet(nbMerchants: 1),
+      expect: () => [
+        MerchantInitial(),
+        GetMerchantsListState(merchantMockResponse.merchants!)
+      ],
+      verify: (_) {
+        verifyInOrder([
+          networkInfoMock.isConnected(),
+          getMerchantsMock.call(const MerchantsParams(nbMerchants: 1))
+        ]);
+        verifyNoMoreInteractions(networkInfoMock);
+        verifyNoMoreInteractions(getMerchantsMock);
+      },
+       tearDown: (){
+         merchantCubit.close();
+       }
+    );
+
+    blocTest(
+      'should emits [MerchantInitial, ErrorState] when cubit.merchantsGet is called fail.',
+      build: () {
+        when(networkInfoMock.isConnected())
+            .thenAnswer((_) => Future.value(true));
+        when(getMerchantsMock.call(const MerchantsParams(nbMerchants: 1)))
+            .thenAnswer((_) => Future.value(Left(ServerFailure())));
+
+        return merchantFailCubit;
+      },
+      act: (MerchantCubit cubit) => cubit.merchantsGet(nbMerchants: 1),
+      expect: () => [MerchantInitial(), ErrorState(FailureMessage.server)],
+      verify: (_) {
+        verifyInOrder([
+          networkInfoMock.isConnected(),
+          getMerchantsMock.call(const MerchantsParams(nbMerchants: 1))
+        ]);
+        verifyNoMoreInteractions(networkInfoMock);
+        verifyNoMoreInteractions(getMerchantsMock);
+      },tearDown: (){
+      merchantFailCubit.close();
+    }
+    );
+
+    blocTest(
+      'should emits [MerchantInitial, ErrorState] when cubit.merchantsGet is called with no internet connexion.',
+      build: () {
+        when(networkInfoMock.isConnected())
+            .thenAnswer((_) => Future.value(false));
+        when(networkInfoMock.onConnectivityChanged)
+            .thenAnswer((_) => Stream.fromIterable([ConnectivityResult.none]));
+        return merchantInternetFailCubit;
+      },
+      act: (MerchantCubit cubit) => cubit.merchantsGet(nbMerchants: 1),
+      expect: () => [MerchantInitial(), ErrorState(FailureMessage.internet)],
+      verify: (_) {
+        verifyInOrder([
+          networkInfoMock.isConnected(),
+        ]);
+        verifyNoMoreInteractions(networkInfoMock);
+      },
+    );
+  });
 }

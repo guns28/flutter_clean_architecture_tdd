@@ -10,6 +10,10 @@ analyzer
 2.12
 file:///Users/dormalcorp/Downloads/flutter/.pub-cache/hosted/pub.dartlang.org/analyzer-1.7.1/
 file:///Users/dormalcorp/Downloads/flutter/.pub-cache/hosted/pub.dartlang.org/analyzer-1.7.1/lib/
+archive
+2.12
+file:///Users/dormalcorp/Downloads/flutter/.pub-cache/hosted/pub.dartlang.org/archive-3.1.2/
+file:///Users/dormalcorp/Downloads/flutter/.pub-cache/hosted/pub.dartlang.org/archive-3.1.2/lib/
 args
 2.12
 file:///Users/dormalcorp/Downloads/flutter/.pub-cache/hosted/pub.dartlang.org/args-2.1.1/
@@ -156,8 +160,8 @@ file:///Users/dormalcorp/Downloads/flutter/.pub-cache/hosted/pub.dartlang.org/ff
 file:///Users/dormalcorp/Downloads/flutter/.pub-cache/hosted/pub.dartlang.org/ffi-1.1.2/lib/
 file
 2.12
-file:///Users/dormalcorp/Downloads/flutter/.pub-cache/hosted/pub.dartlang.org/file-6.1.2/
-file:///Users/dormalcorp/Downloads/flutter/.pub-cache/hosted/pub.dartlang.org/file-6.1.2/lib/
+file:///Users/dormalcorp/Downloads/flutter/.pub-cache/hosted/pub.dartlang.org/file-6.1.0/
+file:///Users/dormalcorp/Downloads/flutter/.pub-cache/hosted/pub.dartlang.org/file-6.1.0/lib/
 fixnum
 2.12
 file:///Users/dormalcorp/Downloads/flutter/.pub-cache/hosted/pub.dartlang.org/fixnum-1.0.0/
@@ -414,6 +418,10 @@ string_scanner
 2.12
 file:///Users/dormalcorp/Downloads/flutter/.pub-cache/hosted/pub.dartlang.org/string_scanner-1.1.0/
 file:///Users/dormalcorp/Downloads/flutter/.pub-cache/hosted/pub.dartlang.org/string_scanner-1.1.0/lib/
+sync_http
+2.12
+file:///Users/dormalcorp/Downloads/flutter/.pub-cache/hosted/pub.dartlang.org/sync_http-0.3.0/
+file:///Users/dormalcorp/Downloads/flutter/.pub-cache/hosted/pub.dartlang.org/sync_http-0.3.0/lib/
 synchronized
 2.12
 file:///Users/dormalcorp/Downloads/flutter/.pub-cache/hosted/pub.dartlang.org/synchronized-3.0.0/
@@ -490,6 +498,10 @@ web_socket_channel
 2.12
 file:///Users/dormalcorp/Downloads/flutter/.pub-cache/hosted/pub.dartlang.org/web_socket_channel-2.1.0/
 file:///Users/dormalcorp/Downloads/flutter/.pub-cache/hosted/pub.dartlang.org/web_socket_channel-2.1.0/lib/
+webdriver
+2.12
+file:///Users/dormalcorp/Downloads/flutter/.pub-cache/hosted/pub.dartlang.org/webdriver-3.0.0/
+file:///Users/dormalcorp/Downloads/flutter/.pub-cache/hosted/pub.dartlang.org/webdriver-3.0.0/lib/
 webkit_inspection_protocol
 2.12
 file:///Users/dormalcorp/Downloads/flutter/.pub-cache/hosted/pub.dartlang.org/webkit_inspection_protocol-1.0.0/
@@ -514,6 +526,10 @@ flutter
 2.12
 file:///Users/dormalcorp/Downloads/flutter/packages/flutter/
 file:///Users/dormalcorp/Downloads/flutter/packages/flutter/lib/
+flutter_driver
+2.12
+file:///Users/dormalcorp/Downloads/flutter/packages/flutter_driver/
+file:///Users/dormalcorp/Downloads/flutter/packages/flutter_driver/lib/
 flutter_localizations
 2.12
 file:///Users/dormalcorp/Downloads/flutter/packages/flutter_localizations/
@@ -526,4 +542,8 @@ flutter_web_plugins
 2.12
 file:///Users/dormalcorp/Downloads/flutter/packages/flutter_web_plugins/
 file:///Users/dormalcorp/Downloads/flutter/packages/flutter_web_plugins/lib/
+fuchsia_remote_debug_protocol
+2.12
+file:///Users/dormalcorp/Downloads/flutter/packages/fuchsia_remote_debug_protocol/
+file:///Users/dormalcorp/Downloads/flutter/packages/fuchsia_remote_debug_protocol/lib/
 2

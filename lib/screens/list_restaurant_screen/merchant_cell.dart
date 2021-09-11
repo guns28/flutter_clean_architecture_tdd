@@ -4,9 +4,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 class MerchantCell extends StatelessWidget {
 
   const MerchantCell(
-      {required this.name, required this.imageUrl, required this.onTap});
+      {required this.id, required this.name, required this.imageUrl, required this.onTap});
 
   final String name;
+  final String id;
   final String imageUrl;
   final Function onTap;
 
@@ -48,7 +49,7 @@ class MerchantCell extends StatelessWidget {
                 Text(name, style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold
-                ))
+                ),key: ValueKey(id),)
               ],
             ),
           )

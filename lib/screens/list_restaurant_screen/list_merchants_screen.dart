@@ -59,7 +59,7 @@ class ListMerchantScreenState extends State<ListMerchantScreen> {
               builder: (BuildContext c, MerchantState state) {
                 print("state $state");
                 if (state is MerchantInitial) {
-                  BlocProvider.of<MerchantCubit>(context).merchantsGet(nbMerchants: 10);
+                  BlocProvider.of<MerchantCubit>(context).merchantsGet(nbMerchants: 50);
                   return Container();
                 } else if (state is GetMerchantsListState) {
                   return body(c, state);
@@ -82,9 +82,9 @@ class ListMerchantScreenState extends State<ListMerchantScreen> {
     return ListView.builder(
       itemCount: listMerchants.length,
       shrinkWrap: true,
-      key: const Key('merchant_list'),
+      key: const ValueKey('merchant_list'),
       itemBuilder: (BuildContext context, int index) {
-        return MerchantCell(name: listMerchants[index].name,
+        return MerchantCell(id:listMerchants[index].id.toString(), name: listMerchants[index].name,
             imageUrl: listMerchants[index].images!.isNotEmpty
                 ? listMerchants[index].images!.first.url
                 : "https://via.placeholder.com/350x150",

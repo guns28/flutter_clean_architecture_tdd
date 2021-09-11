@@ -16,14 +16,13 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  final container = KiwiContainer();
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return  MultiBlocProvider(
         providers: [
-        BlocProvider(create: (BuildContext context) => container.resolve<MerchantCubit>()),
+        BlocProvider(create: (BuildContext context) => Injector.resolve<MerchantCubit>()),
     ],
     child:MaterialApp(
       title: 'Localizations Sample App',
